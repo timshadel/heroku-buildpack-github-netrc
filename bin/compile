@@ -6,12 +6,12 @@ netrc_template = File.read "#{File.join(File.dirname(__FILE__), '..', 'support',
 # This variable name is used in the ../support/netrc template
 github_token   = ENV['GITHUB_BASIC_TOKEN']
 
-# puts "-----> Finding best location for .netrc"
-# puts "       ENV['HOME'] = #{ENV['HOME']}"
-# puts "       ~           = #{File.dirname('~')}"
-
 File.open "#{ENV['HOME']}/.netrc", "w+", 0600 do |f|
   f.puts ERB.new(netrc_template).result
 end
 
-puts "-----> Generated .netrc file in user's home dir"
+File.open "#{ENV['HOME']}/.curlrc", "w+", 0600 do |f|
+  f.puts "--netrc-optional"
+end
+
+puts "-----> Generated .netrc & .curlrc files in user's home dir"

@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'erb'
+
+netrc_template = File.read "#{File.join(File.dirname(__FILE__), '..', 'support', 'netrc')}"
+# This variable name is used in the ../support/netrc template
+github_token   = ENV['GITHUB_BASIC_TOKEN']
+
+File.open "#{ENV['HOME']}/.netrc", "w+" do |f|
+  f.puts ERB.new(netrc_template).result
+end
+
+puts "-----> Generated .netrc file in user's home dir"

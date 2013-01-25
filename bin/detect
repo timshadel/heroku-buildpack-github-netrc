@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+if !ENV['GITHUB_BASIC_TOKEN'].nil?
+  puts "Github .netrc"
+  exit 0
+else
+  puts "Can't find the Github token for private repo access"
+  exit 1
+end

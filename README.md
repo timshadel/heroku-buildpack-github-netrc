@@ -23,5 +23,6 @@ Example usage:
     -----> Heroku receiving push
     -----> Fetching custom buildpack
     -----> Github .netrc app detected
+           Generated .netrc & .curlrc files (available only at build-time)
 
 TODO!

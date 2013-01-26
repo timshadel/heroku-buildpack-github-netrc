@@ -2,16 +2,20 @@
 
 require 'erb'
 
+build_dir    = ARGV[0]
+cache_dir    = ARGV[1]
+github_token = ENV['GITHUB_BASIC_TOKEN']
+
 netrc_template = File.read "#{File.join(File.dirname(__FILE__), '..', 'support', 'netrc')}"
-# This variable name is used in the ../support/netrc template
-github_token   = ENV['GITHUB_BASIC_TOKEN']
 
 File.open "#{ENV['HOME']}/.netrc", "w+", 0600 do |f|
+  # The ../support/netrc template relies on the `github_token` variable above
   f.puts ERB.new(netrc_template).result
 end
 
 File.open "#{ENV['HOME']}/.curlrc", "w+", 0600 do |f|
+  # Make the .netrc file optional (so it doesn't mess up prod), but honored (during build)
   f.puts "--netrc-optional"
 end
 
-puts "-----> Generated .netrc & .curlrc files in user's home dir"
+puts "       Generated .netrc & .curlrc files (available only at build-time)"

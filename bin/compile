@@ -1,25 +1,49 @@
 #!/usr/bin/env ruby
 
 require 'erb'
+require 'fileutils'
+require "#{File.join(File.dirname(__FILE__), '..', 'lib', 'github')}"
 
 build_dir    = ARGV[0]
 cache_dir    = ARGV[1]
-github_token = ENV['GITHUB_BASIC_TOKEN']
+github_token = ENV['GITHUB_AUTH_TOKEN']
+
+if github_token.nil?
+  puts "       !!!! GITHUB_AUTH_TOKEN not set"
+  puts "       !!!!   Try `heroku config:add GITHUB_AUTH_TOKEN=<my token>`"
+  puts "       !!!!   See http://developer.github.com/v3/oauth/#non-web-application-flow"
+  exit 1
+end
 
 netrc_template = File.read "#{File.join(File.dirname(__FILE__), '..', 'support', 'netrc')}"
 
+##
+# Supply `curl` on the BUILD machine (not in slug) with token to access private Github repos
 File.open "#{ENV['HOME']}/.netrc", "w+", 0600 do |f|
   # The ../support/netrc template relies on the `github_token` variable above
   f.puts ERB.new(netrc_template).result
 end
 
+##
+# Tell `curl` on the BUILD machine (not in slug) to use ~/.netrc
 File.open "#{ENV['HOME']}/.curlrc", "w+", 0600 do |f|
-  # Make the .netrc file optional (so it doesn't mess up prod), but honored (during build)
   f.puts "--netrc-optional"
 end
 
-puts "       Generated .netrc & .curlrc files (available only at build-time)"
+if valid_login?
+  puts "       Generated .netrc & .curlrc files (available only at build-time)"
 
-File.open "#{build_dir}/.profile.d/netrc.sh", "w+", 0600 do |f|
-  f.puts "unset GITHUB_BASIC_TOKEN"
+  ##
+  # Remove $GITHUB_AUTH_TOKEN from runtime environment at slug boot time.
+  FileUtils.mkdir_p "#{build_dir}/.profile.d"
+  File.open "#{build_dir}/.profile.d/netrc.sh", "w+", 0600 do |f|
+    f.puts "unset GITHUB_AUTH_TOKEN"
+  end
+
+  ##
+  # Print out user information
+  puts user_block(ENV['GITHUB_AUTH_TOKEN'])
+else
+  puts "       !!!! No valid Github user found with GITHUB_AUTH_TOKEN: '#{ENV['GITHUB_AUTH_TOKEN']}'"
+  exit 1
 end

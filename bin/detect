@@ -1,9 +1,8 @@
-#!/usr/bin/env ruby
+#!/bin/sh
 
-if !ENV['GITHUB_BASIC_TOKEN'].nil?
-  puts "Github .netrc"
-  exit 0
-else
-  puts "Can't find the Github token for private repo access"
-  exit 1
-end
+# If someone asks for this buildpack, it's got to be in the
+# context of another buildpack, like Multipack. Therefore,
+# we're best able to communicate the absence of the needed
+# environment variable if we fail during the 'compile' task.
+echo "github-netrc"
+exit 0

@@ -19,3 +19,7 @@ File.open "#{ENV['HOME']}/.curlrc", "w+", 0600 do |f|
 end
 
 puts "       Generated .netrc & .curlrc files (available only at build-time)"
+
+File.open "#{build_dir}/.profile.d/netrc.sh", "w+", 0600 do |f|
+  f.puts "unset GITHUB_BASIC_TOKEN"
+end

@@ -1,7 +1,7 @@
 Heroku buildpack: Github private repo access via ~/.netrc
 ===================================
 
-This buildpack uses a Github OAuth2 token exposed as `GITHUB_BASIC_TOKEN`
+This buildpack uses a Github OAuth2 token exposed as `GITHUB_AUTH_TOKEN`
 to resolve private repository URLs without putting a specific username
 or password in the URLs saved in local files (e.g. `package.json`).
 

@@ -14,6 +14,15 @@ and instead only set it on the app where you push your code & which runs the bui
 
 [github-builds]: https://github.com/blog/1270-easier-builds-and-deployments-using-git-over-https-and-oauth
 
+Requirements
+------------
+
+The app must have `user-env-compile` enabled for the buildpack to have access to config vars when building.
+
+    heroku labs:enable user-env-compile -a myapp
+
+[Read more aobut user-env-compile.](https://devcenter.heroku.com/articles/labs-user-env-compile)
+
 Usage
 -----
 

@@ -30,7 +30,7 @@ File.open "#{ENV['HOME']}/.curlrc", "w+", 0600 do |f|
   f.puts "--netrc-optional"
 end
 
-if valid_login?
+if valid_login? github_token
   puts "       Generated .netrc & .curlrc files (available only at build-time)"
 
   ##
@@ -42,7 +42,7 @@ if valid_login?
 
   ##
   # Print out user information
-  puts user_block(ENV['GITHUB_AUTH_TOKEN'])
+  puts user_block(github_token)
 else
   puts "       !!!! No valid Github user found with GITHUB_AUTH_TOKEN: '#{ENV['GITHUB_AUTH_TOKEN']}'"
   exit 1

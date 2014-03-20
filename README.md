@@ -54,7 +54,7 @@ Usage
 
 Example usage:
 
-    $ heroku create --stack cedar --buildpack https://github.com/fs-webdev/heroku-buildpack-netrc.git
+    $ heroku create --buildpack https://github.com/fs-webdev/heroku-buildpack-netrc.git
 
 Set the token.
 

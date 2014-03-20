@@ -18,13 +18,7 @@ and instead only set it on the app where you push your code & which runs the bui
 Requirements
 ------------
 
-The app must have `user-env-compile` enabled for the buildpack to have access to config vars when building.
-
-    heroku labs:enable user-env-compile -a myapp
-
-[Read more aobut user-env-compile.](https://devcenter.heroku.com/articles/labs-user-env-compile)
-
-You'll also need to make a Github authorization token. Here's the `curl` command you can use.
+You'll need to make a Github authorization token. Here's the `curl` command you can use.
 
 ```console
 $ curl -u 'my-read-only-user' -d '{"scopes":["repo"],"note":"GITHUB_AUTH_TOKEN for Heroku deplyoments","note_url":"https://github.com/timshadel/heroku-buildpack-github-netrc"}' https://api.github.com/authorizations  # Github API call
@@ -62,9 +56,8 @@ Example usage:
 
     $ heroku create --stack cedar --buildpack http://github.com/fs-webdev/heroku-buildpack-netrc.git
 
-Enable config vars to be visible during buildpack execution, and set the token.
+Set the token.
 
-    $ heroku labs:enable user-env-compile
     $ heroku config:set GITHUB_AUTH_TOKEN=<my-read-only-token>
 
 Deploy your app.

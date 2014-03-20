@@ -6,7 +6,16 @@ require "#{File.join(File.dirname(__FILE__), '..', 'lib', 'github')}"
 
 build_dir    = ARGV[0]
 cache_dir    = ARGV[1]
-github_token = ENV['GITHUB_AUTH_TOKEN']
+env_dir      = ARGV[2]
+
+github_token = if env_dir
+                 token_file = File.join(env_dir, 'GITHUB_AUTH_TOKEN')
+                 File.open(token_file, &:read) if File.exist? token_file
+               else
+                 # Legacy user-env-compile support
+                 # TODO: Remove once deprecation is complete
+                 ENV['GITHUB_AUTH_TOKEN']
+               end
 
 if github_token.nil?
   puts "       !!!! GITHUB_AUTH_TOKEN not set"
@@ -44,6 +53,6 @@ if valid_login? github_token
   # Print out user information
   puts user_block(github_token)
 else
-  puts "       !!!! No valid Github user found with GITHUB_AUTH_TOKEN: '#{ENV['GITHUB_AUTH_TOKEN']}'"
+  puts "       !!!! No valid Github user found with GITHUB_AUTH_TOKEN: '#{github_token}'"
   exit 1
 end

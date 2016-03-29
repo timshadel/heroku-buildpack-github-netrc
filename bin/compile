@@ -27,7 +27,7 @@ end
 netrc_template = File.read "#{File.join(File.dirname(__FILE__), '..', 'support', 'netrc')}"
 
 ##
-# Supply `curl` on the BUILD machine (not in slug) with token to access private Github repos
+# Supply `curl` on the BUILD machine (not in slug) with token to access private GitHub repos
 File.open "#{ENV['HOME']}/.netrc", "w+", 0600 do |f|
   # The ../support/netrc template relies on the `github_token` variable above
   f.puts ERB.new(netrc_template).result
@@ -53,6 +53,6 @@ if valid_login? github_token
   # Print out user information
   puts user_block(github_token)
 else
-  puts "       !!!! No valid Github user found with GITHUB_AUTH_TOKEN: '#{github_token}'"
+  puts "       !!!! No valid GitHub user found with GITHUB_AUTH_TOKEN: '#{github_token}'"
   exit 1
 end

@@ -1,12 +1,12 @@
-Heroku buildpack: Github private repo access via ~/.netrc
+Heroku buildpack: GitHub private repo access via ~/.netrc
 ===================================
 
-This buildpack uses a Github OAuth2 token exposed as `GITHUB_AUTH_TOKEN`
+This buildpack uses a GitHub OAuth2 token exposed as `GITHUB_AUTH_TOKEN`
 to resolve private repository URLs without putting a specific username
 or password in the URLs saved in local files (e.g. `package.json`).
 
 See [Easier builds and deployments using Git over HTTPS and
-OAuth][github-builds] and [Github OAuth — Non-web Application Flow][github-oauth] for more detail. Also, you may want to choose a user with read-only access.
+OAuth][github-builds] and [GitHub OAuth — Non-web Application Flow][github-oauth] for more detail. Also, you may want to choose a user with read-only access.
 
 If you use this in conjunction with the `labs:pipeline` feature of Heroku, you may
 avoid setting the `GITHUB_AUTH_TOKEN` environment variable on your test & prod apps,
@@ -18,10 +18,10 @@ and instead only set it on the app where you push your code & which runs the bui
 Requirements
 ------------
 
-You'll need to make a Github authorization token. Here's the `curl` command you can use.
+You'll need to make a GitHub authorization token. Here's the `curl` command you can use.
 
 ```console
-$ curl -u 'my-read-only-user' -d '{"scopes":["repo"],"note":"GITHUB_AUTH_TOKEN for Heroku deplyoments","note_url":"https://github.com/timshadel/heroku-buildpack-github-netrc"}' https://api.github.com/authorizations  # Github API call
+$ curl -u 'my-read-only-user' -d '{"scopes":["repo"],"note":"GITHUB_AUTH_TOKEN for Heroku deplyoments","note_url":"https://github.com/timshadel/heroku-buildpack-github-netrc"}' https://api.github.com/authorizations  # GitHub API call
 Enter host password for user 'username':  [type password]
 
 {
@@ -41,7 +41,7 @@ Enter host password for user 'username':  [type password]
 ```
 
 This token may be revoked at any time by visiting the [Applications area][github-apps]
-of your Github account. You'll see the `note` linked to the `note_url` and the revoke
+of your GitHub account. You'll see the `note` linked to the `note_url` and the revoke
 button right next to it.
 
 You may also create a new token using the GitHub UI; follow the instructions in the [GitHub OAuth help article][github-oauth-help] and ensure your token has the "`repo`" scope.
@@ -78,7 +78,7 @@ $ git push heroku master  # push your changes to Heroku
 =====> Downloading Buildpack: https://github.com/timshadel/heroku-buildpack-github-netrc.git
 =====> Detected Framework: github-netrc
        Generated .netrc & .curlrc files (available only at build-time)
-       Github User:   my-read-only-user
+       GitHub User:   my-read-only-user
        Authorization: GITHUB_AUTH_TOKEN for Heroku deplyoments (private repo access)
        Organizations: my-org, another-org
 ...

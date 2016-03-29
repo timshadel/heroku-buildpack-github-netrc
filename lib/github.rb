@@ -22,7 +22,7 @@ end
 
 def user_block token
   <<-USER
-       Github User:   #{login(token)}
+       GitHub User:   #{login(token)}
        Organizations: #{github_user_orgs(token).join(", ")}
   USER
 end

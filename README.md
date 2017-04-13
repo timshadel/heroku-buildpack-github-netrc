@@ -10,7 +10,7 @@ OAuth][github-builds] and [GitHub OAuth — Non-web Application Flow][github-oau
 
 If you use this in conjunction with the `labs:pipeline` feature of Heroku, you may
 avoid setting the `GITHUB_AUTH_TOKEN` environment variable on your test & prod apps,
-and instead only set it on the app where you push your code & which runs the buildpack.
+and instead only set it on the app where you push your code & which runs the buildpack. See [inheriting config vars](https://devcenter.heroku.com/articles/github-integration-review-apps#inheriting-config-vars).
 
 [github-builds]: https://github.com/blog/1270-easier-builds-and-deployments-using-git-over-https-and-oauth
 [github-oauth]: http://developer.github.com/v3/oauth/#create-a-new-authorization

@@ -24,6 +24,8 @@ if github_token.nil?
   exit 1
 end
 
+system "git config --global --add github.accesstoken #{github_token}"
+
 netrc_template = File.read "#{File.join(File.dirname(__FILE__), '..', 'support', 'netrc')}"
 
 ##
@@ -47,6 +49,7 @@ if valid_login? github_token
   FileUtils.mkdir_p "#{build_dir}/.profile.d"
   File.open "#{build_dir}/.profile.d/netrc.sh", "w+", 0600 do |f|
     f.puts "unset GITHUB_AUTH_TOKEN"
+    f.puts "git config --global --unset github.accesstoken"
   end
 
   ##
